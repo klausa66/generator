@@ -1,0 +1,81 @@
+// generated code !!!! do not modify!!!
+package $clazz.getPackageName();
+import com.jgoodies.validation.ValidationResult;
+import com.jgoodies.validation.Validator;
+import com.jgoodies.validation.util.PropertyValidationSupport;
+import com.jgoodies.validation.util.ValidationUtils;
+
+
+public class $clazz.getValidatorClassname() extends ValidationBase implements Validator<$clazz.getValidationDefClassname()>{
+
+	protected String key;
+	
+    // Validation *************************************************************
+
+    public $clazz.getValidatorClassname()(String key)
+	{
+		super();
+		this.key = key;
+	}
+
+	/**
+     * Validates this Validator's $clazz.getValidationDefClassname() and returns the result
+     * as an instance of {@link ValidationResult}.
+     *
+     * @param $clazz.getDefInstanceName()  to be validated
+     * @return the ValidationResult of the order validation
+     */
+    public ValidationResult validate($clazz.getValidationDefClassname() $clazz.getDefInstanceName()) {
+        PropertyValidationSupport support=new PropertyValidationSupport($clazz.getDefInstanceName(), key);
+#foreach( $prop in $properties )
+#if( ${prop.isNotEmpty()} )
+#if ( ${prop.getType()} == "java.lang.String" )
+        if(ValidationUtils.isBlank(${clazz.getDefInstanceName()}.${prop.getMethodName()}()))
+            support.addError(getValidationKey("${clazz.getDefInstanceName()}.${prop.getName()}.key"), getValidationMessage("${clazz.getDefInstanceName()}.${prop.getName()}.mandatory.message"));
+#else
+        if(${clazz.getDefInstanceName()}.${prop.getMethodName()}()==null)
+            support.addError(getValidationKey("${clazz.getDefInstanceName()}.${prop.getName()}.key"), getValidationMessage("${clazz.getDefInstanceName()}.${prop.getName()}.mandatory.message"));
+#end
+#end
+#if( ${prop.isShortDateFormat()} )
+        if(!ValidationUtils.isBlank(${clazz.getDefInstanceName()}.${prop.getMethodName()}()))
+        {
+	        String strValidate=validateDateString(${clazz.getDefInstanceName()}.${prop.getMethodName()}());
+	        if(strValidate!=null)
+	        {
+	            support.addError(getValidationKey("${clazz.getDefInstanceName()}.${prop.getName()}.key"), strValidate);
+	        }
+	    }
+#end
+#if( ${prop.isCurrency()} )
+        if(!ValidationUtils.isBlank(${clazz.getDefInstanceName()}.${prop.getMethodName()}()))
+        {
+	        String strValidate=validatePrice(${clazz.getDefInstanceName()}.${prop.getMethodName()}());
+	        if(strValidate!=null)
+	        {
+	            support.addError(getValidationKey("${clazz.getDefInstanceName()}.${prop.getName()}.key"), strValidate);
+	        }
+	    }
+#end
+#if( ${prop.isGebueHCat()} )
+        if(!ValidationUtils.isBlank(${clazz.getDefInstanceName()}.${prop.getMethodName()}()))
+        {
+	        String strValidate=validateGebueHCat(${clazz.getDefInstanceName()}.${prop.getMethodName()}());
+	        if(strValidate!=null)
+	        {
+	            support.addError(getValidationKey("${clazz.getDefInstanceName()}.${prop.getName()}.key"), strValidate);
+	        }
+	    }
+#end
+#if( ${prop.getLength()}!=0 )
+        if(!ValidationUtils.isBlank(${clazz.getDefInstanceName()}.${prop.getMethodName()}()))
+        {
+			if (${clazz.getDefInstanceName()}.${prop.getMethodName()}().trim().length()!=5)
+	            support.addError(getValidationKey("${clazz.getDefInstanceName()}.${prop.getName()}.key"), getValidationMessage("${clazz.getDefInstanceName()}.${prop.getName()}.length.message"));
+	    } 
+#end
+#end
+        return support.getResult();
+    }
+
+}
