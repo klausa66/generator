@@ -27,25 +27,24 @@ compileJava.options.encoding = 'UTF-8'
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //              External Dependencies
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-sourceSets {
-  main {
-    java {
-      srcDir 'src/annotations/java'
-      srcDir 'src/main/java'
-    }
-    resources { srcDir 'src/main/resources' }
-  }
-}
+//sourceSets {
+//	  main {
+//	    java {
+//	      srcDir 'src/annotations/java'
+//	      srcDir 'src/main/java'
+//	    }
+//	    resources { srcDir 'src/main/resources' }
+//	  }
+//	  test {
+//	    java {
+//	      srcDir 'test'
+//	    }
+//	  }
+//	}
 
 
 repositories { mavenCentral() }
 
-
-jar {
-  println('adding services to jar')
-  // add a single file; path is relative to project dir
-  from ("${projectDir}/copy"){ include 'META-INF/services/**' }
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //              External Dependencies
@@ -88,6 +87,25 @@ task jarAnnotation(type: Jar){
     include "andreas/klaus/generator/annotations/**" }
 }
 
+configure(jarAnnotation){
+	group = 'Build'
+	description = "Build jar with the Genaerator annotations"
+}
+
+task myEnv{
+	doLast{
+		println "task myEnv"
+		println "GRADLE_USER_HOME: $project.gradle.gradleUserHomeDir"
+		print 'JAVA_HOME: '
+		println System.properties.'java.home'
+		println 'AK ArtifactDir:' + project.properties['de.klausa.local.artifacts.dir']
+	}
+}
+
+configure(myEnv){
+	group = 'Environmental'
+	description = "Show  Gradle Environment"
+}
 
 artifacts{
   archives jarAnnotation

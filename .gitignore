@@ -1,4 +1,20 @@
-/bin/
-/generated/
-/repos/
-/build/
+# Compiled source #
+###################
+*.class
+*.exe
+
+
+# Logs and databases #
+######################
+*.log
+Thumbs.db
+**/.classpath
+**/.factorypath
+**/.project
+# dirs
+.gradle/
+.settings/
+build/
+bin/
+generated_pojobuilder/
+generated/
