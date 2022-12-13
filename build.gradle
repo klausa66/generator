@@ -1,95 +1,12 @@
-import java.util.jar.JarEntry;
-
-// Plugins
-apply plugin : 'java'
-apply plugin : 'eclipse'
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//              Project properties
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-description = 'JGM-Generator'
-version=1.1
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
-
-jar {
-  manifest {
-    attributes("Implementation-Title": description,
-    "Implementation-Version": version,
-    "sourceCompatibility": sourceCompatibility,
-    "targetCompatibility" : targetCompatibility)
-  }
+//import java.util.jar.JarEntry;
+plugins {
+    id 'eclipse'
 }
-
-compileJava.options.encoding = 'UTF-8'
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//              External Dependencies
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//sourceSets {
-//	  main {
-//	    java {
-//	      srcDir 'src/annotations/java'
-//	      srcDir 'src/main/java'
-//	    }
-//	    resources { srcDir 'src/main/resources' }
-//	  }
-//	  test {
-//	    java {
-//	      srcDir 'test'
-//	    }
-//	  }
-//	}
-
-
-repositories { mavenCentral() }
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//              External Dependencies
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// defining lib
-ext {
-  libs = [
-    junit: 'junit:junit:4.12',
-    log4j: 'log4j:log4j:1.2.17',
-    velocity: 'org.apache.velocity:velocity:1.7',
-    jgoodies_binding: 'com.jgoodies:jgoodies-binding:2.10.0',
-    jgoodies_validation: 'com.jgoodies:jgoodies-validation:2.5.1'
-  ]
-}
-
-dependencies {
-  // Dependencies production Compile
-  compile libs.log4j, libs.velocity, libs.jgoodies_validation
-  // Dependencies test compile
-  testCompile libs.junit, libs.jgoodies_binding
-  // Dependencies code Generation
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//              TASKS
-///////////////////////////////////////////////////////////////////////////////////////////////////
-task jarAnnotation(type: Jar){
-  manifest {
-    attributes("Implementation-Title": 'JGM-Generator Annotations',
-    "Implementation-Version": version,
-    "sourceCompatibility": sourceCompatibility,
-    "targetCompatibility" : targetCompatibility)
-
-  }
-  baseName = "jarJGMAnnotation"
-  // add all classes and resources produced from main source set
-  // (e.g. src/main/java, src/main/resources)
-  from(sourceSets.main.output) { // filter to only include certain class files (Ant glob pattern)
-    include "andreas/klaus/generator/annotations/**" }
-}
-
-configure(jarAnnotation){
-	group = 'Build'
-	description = "Build jar with the Genaerator annotations"
+subprojects{
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'java-library-distribution'
+	apply plugin: 'maven-publish'
 }
 
 task myEnv{
@@ -107,16 +24,6 @@ configure(myEnv){
 	description = "Show  Gradle Environment"
 }
 
-artifacts{
-  archives jarAnnotation
-}
 
-uploadArchives {
-  repositories {
-     flatDir {
-         dirs 'repos'
-     }
-  }
-}
 
 

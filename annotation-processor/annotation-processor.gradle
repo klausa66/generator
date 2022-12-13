@@ -1,0 +1,49 @@
+// Plugins
+description = 'JGM-Generator'
+version=1.1
+
+compileJava.options.encoding = 'UTF-8'
+repositories { mavenCentral() }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//              Project properties
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+dependencies {
+	// Dependencies production Compile
+    implementation project (':annotation')
+	implementation (libs.log4j, libs.velocity)
+	// Dependencies test compile
+	testImplementation (libs.junit)
+ // Dependencies code Generation
+}
+
+
+description = 'JGM-Generator'
+version=1.1
+
+jar {
+  manifest {
+    attributes("Implementation-Title": description,
+    "Implementation-Version": version,
+    "sourceCompatibility": sourceCompatibility,
+    "targetCompatibility" : targetCompatibility)
+  }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'de.klausa.generator'
+            artifactId = 'generator-impl'
+            version = "$version"        
+			from components.java
+		}
+    }
+    repositories {
+        maven {
+            url "file://C:/develop/artifacts"
+            name = 'myRepo'
+	   }
+    }
+}

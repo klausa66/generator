@@ -1,0 +1,66 @@
+// generated code !!!! do not modify!!!
+package $clazz.getPackageJGMName();
+import org.apache.log4j.Logger;
+import com.jgoodies.binding.beans.Model;
+import $clazz.getQualifiedClassName();
+
+/**
+ * Wrapps the class <code>$clazz.getClassName()</code> as jgoodies binding-Model Class.
+ * the original Pojo is contained 
+ *
+ */
+public class ${clazz.getJGMClassName()} extends Model
+{
+    // Logger
+    static private final Logger LOG4J = Logger.getLogger(${clazz.getJGMClassName()}.class);
+    
+	////////////////////////////////////////////////////////////////////////////
+	// Constants 
+	////////////////////////////////////////////////////////////////////////////
+	
+	#foreach( $prop in $properties )
+	public static final String $prop.getConstantName() ="$prop.getConstantValue()";
+	#end
+
+	private  $clazz.getClassName() pojo;
+
+	/**
+	 * ctor
+	 **/
+	public ${clazz.getJGMClassName()}($clazz.getClassName() pojo)
+	{
+		this.pojo=pojo;
+	}
+	 
+
+	////////////////////////////////////////////////////////////////////////////
+	// Methods 
+	////////////////////////////////////////////////////////////////////////////
+
+	public $clazz.getClassName() getPojo()
+	{
+		return pojo;
+	}
+	
+#foreach( $prop in $properties )
+#if( ${prop.isRead()} )
+	public $prop.getType() $prop.getterMethodName()() 
+	{
+		return (pojo.$prop.getterMethodName()());
+	}
+#end
+#if( ${prop.isWrite()} )
+	public void $prop.setterMethodName()($prop.getType() newValue) 
+	{
+        $prop.getType() oldValue = $prop.getterMethodName()();
+        pojo.$prop.setterMethodName()(newValue);
+        firePropertyChange($prop.getConstantName(), oldValue, newValue);
+        LOG4J.debug("set $prop.getType():"+oldValue+", "+newValue);
+	}
+#end
+#end
+	
+	
+}
+
+

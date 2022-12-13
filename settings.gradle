@@ -1,0 +1,35 @@
+rootProject.name = 'generator'
+include('annotation')
+include ('annotation-processor');
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// set name of gradle files in subprojects
+////////////////////////////////////////////////////////////////////////////////////////////
+
+void setNameForSubprojectGradleFile(project) {
+	String curName = "${project.name}.gradle"
+	System.out.println("new Gradle-File-Name: " +curName)
+	project.buildFileName=curName;
+  }
+
+// set names of subproject-Gradle-files
+rootProject.children.each { subproject -> setNameForSubprojectGradleFile(subproject) }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//              External Dependencies
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            library('junit', 'junit:junit:4.12')
+            library('jgoodies_binding', 'com.jgoodies:jgoodies-binding:2.10.0')
+            library('jgoodies_validation', 'com.jgoodies:jgoodies-validation:2.5.1')
+            library('log4j', 'log4j:log4j:1.2.17')
+            library('velocity', 'org.apache.velocity:velocity:1.7')
+        }
+    }
+}
+

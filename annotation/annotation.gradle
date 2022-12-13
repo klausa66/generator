@@ -1,0 +1,54 @@
+description = 'JGM-Generator-Annotations'
+version=1.1
+compileJava.options.encoding = 'UTF-8'
+repositories { mavenCentral() }
+
+
+dependencies {
+	// Dependencies production Compile
+		implementation (libs.log4j)
+	// Dependencies test compile
+		//  testImplementation (libs.junit, libs.jgoodies_binding)
+ // Dependencies code Generation
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//              TASKS
+///////////////////////////////////////////////////////////////////////////////////////////////////
+task jarAnnotation(type: Jar){
+  manifest {
+    attributes("Implementation-Title": "description",
+    "Implementation-Version": "version",
+    "sourceCompatibility": sourceCompatibility,
+    "targetCompatibility" : targetCompatibility)
+
+  }
+  baseName = "jarJGMAnnotation"
+  // add all classes and resources produced from main source set
+  // (e.g. src/main/java, src/main/resources)
+  from(sourceSets.main.output) { // filter to only include certain class files (Ant glob pattern)
+    include "andreas/klaus/generator/annotations/**" }
+}
+
+configure(jarAnnotation){
+	group = 'Build'
+	description = "Build jar with the Generator annotations"
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'de.klausa.generator'
+            artifactId = 'generator-annotations'
+            version = "$version"        
+			from components.java
+		}
+    }
+    repositories {
+        maven {
+            url "file://C:/develop/artifacts"
+            name = 'myRepo'
+	   }
+    }
+}
