@@ -1,8 +1,11 @@
 description = 'JGM-Generator-Annotations'
-version=1.1
+version='1.8.0'
 compileJava.options.encoding = 'UTF-8'
 repositories { mavenCentral() }
-
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
 
 dependencies {
 	// Dependencies production Compile

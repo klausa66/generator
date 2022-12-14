@@ -4,7 +4,7 @@ import andreas.klaus.generator.annotations.ModelClass;
 import andreas.klaus.generator.annotations.ModelMethod;
 
 @ModelClass(nopojo=true)
-public class ModelClassTestWithExtraClassName
+public class ModelClassTest
 {
 	private String seppString;
 	private String noSeppString;
