@@ -2,12 +2,13 @@
 
 compileJava.options.encoding = 'UTF-8'
 repositories { mavenCentral() }
-compileJava {
+java {
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
 }
-description = 'JGM-Generator'
 version='1.8.6'
+project.description='JGM-Generator'
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //              Project properties
@@ -29,8 +30,8 @@ dependencies {
 
 jar {
   manifest {
-    attributes("Implementation-Title": description,
-    "Implementation-Version": version,
+    attributes ("Implementation-Title" : "$project.description",
+    "Implementation-Version" :  "$version",
     "sourceCompatibility": sourceCompatibility,
     "targetCompatibility" : targetCompatibility)
   }
